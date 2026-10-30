@@ -1,6 +1,6 @@
 # Mehta VC — A considered perspective
 
-Static website for Mehta Ventures Capital. Open `index.html` to view locally. HTML, CSS, JavaScript, and images are included; no build step is required.
+Static website for Mehta Ventures Capital. Open `index.html` to view locally. No build step is required.
 
 ## GitHub Pages
 
