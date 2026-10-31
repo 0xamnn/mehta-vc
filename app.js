@@ -1,25 +1,9 @@
-const toggle = document.querySelector('.menu-toggle');
-const mobileNav = document.querySelector('#mobile-nav');
-toggle.addEventListener('click', () => {
-  const expanded = toggle.getAttribute('aria-expanded') === 'true';
-  toggle.setAttribute('aria-expanded', String(!expanded));
-  toggle.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
-  mobileNav.hidden = expanded;
-});
-mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-  mobileNav.hidden = true; toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Open menu');
-}));
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') { mobileNav.hidden = true; toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Open menu'); }
-});
-const progress = document.querySelector('.progress');
-function updateProgress() {
-  const distance = document.documentElement.scrollHeight - window.innerHeight;
-  progress.style.width = `${distance > 0 ? window.scrollY / distance * 100 : 0}%`;
-}
-window.addEventListener('scroll', updateProgress, { passive: true });
-window.addEventListener('resize', updateProgress); updateProgress();
-const principles = document.querySelectorAll('.principles details');
-principles.forEach(detail => detail.addEventListener('toggle', () => {
-  if(detail.open) principles.forEach(other => { if(other !== detail) other.open = false; });
-}));
+const pref=matchMedia('(prefers-reduced-motion: reduce)');const motion=document.querySelector('.motion');let paused=pref.matches;function setMotion(value){paused=value;document.body.classList.toggle('paused',value);motion.setAttribute('aria-pressed',String(value));motion.innerHTML=value?'Resume motion <span>▶</span>':'Pause motion <span>Ⅱ</span>'; }setMotion(paused);motion.addEventListener('click',()=>setMotion(!paused));pref.addEventListener('change',e=>setMotion(e.matches));
+const filters=[...document.querySelectorAll('[data-filter]')];const tiles=[...document.querySelectorAll('[data-category]')];filters.forEach(button=>button.addEventListener('click',()=>{const filter=button.dataset.filter;filters.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));let count=0;tiles.forEach(tile=>{tile.hidden=filter!=='all'&&tile.dataset.category!==filter;if(!tile.hidden)count++;});document.querySelector('.filter-status').textContent=filter==='all'?'Showing all 3 themes.':`Showing ${count} theme: ${button.textContent}.`; }));
+const dialog=document.querySelector('#intro');let opener;document.querySelectorAll('.open-intro').forEach(button=>button.addEventListener('click',()=>{opener=button;dialog.showModal();}));document.querySelector('.close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>opener?.focus());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+document.querySelector('#intro-form').addEventListener('submit',e=>{e.preventDefault();const name=document.querySelector('#name').value.trim();const company=document.querySelector('#company').value.trim();const focus=document.querySelector('#focus').value;const idea=document.querySelector('#idea').value.trim();const subject=`Founder introduction${company?' — '+company:''}`;const body=`Hello Mehta VC,\n\nI'm ${name}.${company?' I’m building '+company+'.':''}\n\nArea of focus: ${focus}\n\n${idea}\n\nBest regards,\n${name}`;location.href=`mailto:contact@vcmehta.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;document.querySelector('.form-note').textContent='Your email draft is ready. Review and send it in your email app. If it didn’t open, contact us at contact@vcmehta.com.';});
+
+const menuToggle=document.querySelector('.menu-toggle');const mainNav=document.querySelector('#main-nav');const mobileWidth=matchMedia('(max-width: 700px)');
+function closeMenu(restoreFocus=false){menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Open menu');mainNav.classList.remove('is-open');if(restoreFocus)menuToggle.focus();}
+menuToggle.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')!=='true';menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');mainNav.classList.toggle('is-open',open);});
+mainNav.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',()=>{if(mobileWidth.matches&&el.tagName==='BUTTON')opener=menuToggle;closeMenu();}));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuToggle.getAttribute('aria-expanded')==='true')closeMenu(true);});mobileWidth.addEventListener('change',()=>closeMenu());
