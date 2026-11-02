@@ -33,3 +33,6 @@
 @keyframes conviction-enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
 }
 body.paused #belief .conviction-pending,body.paused #belief .conviction-revealed{opacity:1;transform:none;animation:none!important}
+
+/* Approved Android outline rendering and thicker founders stroke. */
+h1 .outline{paint-order:stroke fill;-webkit-text-fill-color:var(--paper);-webkit-text-stroke-width:3px}
