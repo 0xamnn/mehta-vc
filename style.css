@@ -25,3 +25,11 @@
 
 /* Solid modular illustration for possibilities beyond categories. */
 .beyond:before,.beyond:after{display:none}.possibility-flat{display:block;width:80%;max-width:280px;height:82%;overflow:visible}.possibility-block{transform-box:fill-box;transform-origin:center;animation:possibility-shift 6s ease-in-out infinite}.pb2{animation-delay:-1.5s}.pb3{animation-delay:-3s}.pb4{animation-delay:-4.5s}.possibility-spark{transform-box:fill-box;transform-origin:center;animation:possibility-spark 6s ease-in-out infinite}@keyframes possibility-shift{0%,65%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-10px) rotate(90deg)}}@keyframes possibility-spark{0%,100%{transform:scale(.85) rotate(0)}50%{transform:scale(1.15) rotate(90deg)}}
+
+/* Scroll reveals scoped to Our conviction. */
+@media(prefers-reduced-motion:no-preference){
+#belief .conviction-pending{opacity:0;transform:translateY(26px)}
+#belief .conviction-revealed{animation:conviction-enter .8s cubic-bezier(.2,.65,.25,1) both;animation-delay:var(--conviction-delay,0ms)}
+@keyframes conviction-enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+}
+body.paused #belief .conviction-pending,body.paused #belief .conviction-revealed{opacity:1;transform:none;animation:none!important}

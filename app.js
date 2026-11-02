@@ -7,3 +7,14 @@ const menuToggle=document.querySelector('.menu-toggle');const mainNav=document.q
 function closeMenu(restoreFocus=false){menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Open menu');mainNav.classList.remove('is-open');if(restoreFocus)menuToggle.focus();}
 menuToggle.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')!=='true';menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');mainNav.classList.toggle('is-open',open);});
 mainNav.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',()=>{if(mobileWidth.matches&&el.tagName==='BUTTON')opener=menuToggle;closeMenu();}));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuToggle.getAttribute('aria-expanded')==='true')closeMenu(true);});mobileWidth.addEventListener('change',()=>closeMenu());
+
+/* Reveal each piece when it reaches the viewport, including on mobile. */
+const conviction=document.querySelector('#belief');
+if(conviction && 'IntersectionObserver' in window && !pref.matches){
+ const pieces=[...conviction.querySelectorAll('.eyebrow,h2,.asterisk,.statement>div>p')];
+ const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('conviction-pending');entry.target.classList.add('conviction-revealed');revealObserver.unobserve(entry.target);}});
+ },{threshold:.15,rootMargin:'0px 0px -24px 0px'});
+ pieces.forEach((el,i)=>{el.style.setProperty('--conviction-delay',((i%3)*90)+'ms');el.classList.add('conviction-pending');revealObserver.observe(el);});
+ pref.addEventListener('change',e=>{if(e.matches){revealObserver.disconnect();pieces.forEach(el=>el.classList.remove('conviction-pending','conviction-revealed'));}});
+}
