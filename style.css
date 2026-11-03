@@ -36,3 +36,7 @@ body.paused #belief .conviction-pending,body.paused #belief .conviction-revealed
 
 /* Approved Android outline rendering and thicker founders stroke. */
 h1 .outline{paint-order:stroke fill;-webkit-text-fill-color:var(--paper);-webkit-text-stroke-width:3px}
+
+
+/* Widescreen brand film before The next conversation. */
+.brand-film{padding:100px 7%;background:var(--paper)}.brand-film video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#101210;object-fit:contain}.brand-film video:focus-visible{outline:2px solid var(--orange);outline-offset:5px}@media(max-width:1000px){.brand-film{padding:80px 5%}}@media(max-width:700px){.brand-film{padding:60px 5%}}
