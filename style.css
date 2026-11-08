@@ -43,3 +43,6 @@ h1 .outline{paint-order:stroke fill;-webkit-text-fill-color:var(--paper);-webkit
 
 /* Keep the star spinning independently of its scroll entrance. */
 .asterisk-spin{display:block;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:3.3;transform-origin:center;animation:conviction-star-turn 8s linear infinite}@keyframes conviction-star-turn{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.asterisk-spin{animation:none}}
+
+/* Quiet hero shortcut to the brand film. */
+.hero-film-link{display:inline-flex;align-items:center;gap:12px;min-height:44px;max-width:100%;margin-top:24px;color:var(--ink);font-size:14px;line-height:1.5}.hero-film-link svg{display:block;width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}.hero-film-link .film-duration{color:#6e7065;font-size:13px}.hero-film-link:hover>span:first-of-type{text-decoration:underline;text-underline-offset:4px}.hero-film-link:hover{color:#b53219}.hero-film-link:active{opacity:.8}
